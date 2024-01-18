@@ -1,24 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule,RouterOutlet],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss'
 })
-export class LoginComponent {
+export class NavbarComponent {
+  submit:boolean=false;
+
   constructor(private authService: AuthService) {}
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
-  login(): void {
-    // Assuming you get a token after successful login
-    const token = '1234';
-    this.authService.login(token);
+  toggle()
+  {
+    this.submit=!this.submit;
+  
   }
 }

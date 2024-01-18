@@ -1,3 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// Import base Tailwind CSS styles
+@import 'tailwindcss/base';
+
+// Import component styles
+@import 'tailwindcss/components';
+
+// Your custom styles can go here
+body {
+  // Add your custom styles for the body element
+}
+
+// Import utility classes
+@import 'tailwindcss/utilities';
+
+// Your custom styles can go here
+.container {
+  // Add your custom styles for the container class
+}
+
+// Add more custom styles as needed
