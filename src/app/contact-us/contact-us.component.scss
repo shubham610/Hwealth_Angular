@@ -1,0 +1,32 @@
+@import url(../app.component.scss);
+
+.style1 {
+    font-weight: 700;
+    // margin-left: 10%;
+}
+
+.div-main {
+    margin-left: 10%;
+ 
+}
+.div-main2{
+    margin-top: 70px !important;
+}
+
+.style2 {
+    margin-left: 2%;
+    margin-top: 10px;
+    padding: auto;
+    font-weight: 500;
+}
+
+.style3 {
+    display: flex;
+    align-content: space-between;
+
+}
+
+hr {
+    margin-top: 10px;
+    height: 10px;
+}

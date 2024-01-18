@@ -1,20 +1,42 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-vehicle-insurance',
   standalone: true,
-  imports: [NavbarComponent,CommonModule,FormsModule,],
+  imports: [CommonModule, FormsModule,NavbarComponent],
   templateUrl: './vehicle-insurance.component.html',
-  styleUrl: './vehicle-insurance.component.scss'
+  styleUrls: ['./vehicle-insurance.component.scss']
 })
 export class VehicleInsuranceComponent {
-  constructor(private authService: AuthService) {}
+  formData: any = {
+    personalDetails: {
+      name: '',
+      email: '',
+      phone: '',
+    },
+    vehicleDetails: {
+      model: '',
+      type: '',
+      regNo: '',
+      regDate: '',
+    },
+    insuranceDetails: {
+      tenure: '',
+      type: '',
+    },
+  };
 
+  constructor(private authService: AuthService) {}
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
+  }
+
+  onBuyInsurance() {
+    console.log('Form Data:', this.formData);
+  
   }
 }
