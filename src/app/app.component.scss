@@ -2,6 +2,13 @@ $blue: #3461E5;
 $lightBlue:#C4ECFD;
 $btnOrange:#F86D38;
 
-.name{
+
+.color-dark{
+    color: $blue;
+}
+.color-light{
     color: $lightBlue;
+}
+.btn-color{
+    color: $btnOrange;
 }
