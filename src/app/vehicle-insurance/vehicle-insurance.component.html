@@ -106,6 +106,51 @@
           </div>
           <div class="sm:col-span-4">
             <label
+              for="vehicleType"
+              class="block text-sm font-medium leading-6 text-gray-900"
+              >Vehicle Type</label
+            >
+            <ul class="grid w-full gap-6 md:grid-cols-3">
+              <li>
+                <input
+                  type="radio"
+                  name="vehicleType"
+                  id="car"
+                  value="car"
+                  class="hidden peer"
+                  required
+                />
+                <label
+                  for="car"
+                  class="inline-flex items-center justify-between w-full p-3 text-gray-500 border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                >
+                  <div class="block">
+                    <div class="w-full">Car</div>
+                  </div>
+                </label>
+              </li>
+              <li>
+                <input
+                  type="radio"
+                  name="vehicleType"
+                  id="bike"
+                  value="bike"
+                  class="hidden peer"
+                  required
+                />
+                <label
+                  for="bike"
+                  class="inline-flex items-center justify-between w-full p-3 text-gray-500 border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                >
+                  <div class="block">
+                    <div class="w-full">Bike</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="sm:col-span-4">
+            <label
               for="reg_no"
               class="block text-sm font-medium leading-6 text-gray-900"
               >Vehicle Registration No.</label
