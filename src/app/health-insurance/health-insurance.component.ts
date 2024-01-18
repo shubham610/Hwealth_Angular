@@ -1,15 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-about-us',
+  selector: 'app-health-insurance',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './about-us.component.html',
-  styleUrl: './about-us.component.scss'
+  templateUrl: './health-insurance.component.html',
+  styleUrl: './health-insurance.component.scss'
 })
-export class AboutUsComponent {
+export class HealthInsuranceComponent {
   constructor(private authService: AuthService) {}
 
   isLoggedIn(): boolean {
