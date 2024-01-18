@@ -16,6 +16,6 @@ export const routes: Routes = [
     {path:'home',component:AppComponent,  canActivate: [AuthGuard]},
     {path:'vehicle',component:VehicleInsuranceComponent,  canActivate: [AuthGuard]},
     {path:'health',component:HealthInsuranceComponent,  canActivate: [AuthGuard]},
-    {path:'about',component:AboutUsComponent,  canActivate: [AuthGuard]},
+    {path:'about',component:AboutUsComponent, canActivate: [AuthGuard]},
     {path:'contact',component:ContactUsComponent,  canActivate: [AuthGuard]}
 ];

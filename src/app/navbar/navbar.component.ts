@@ -7,7 +7,7 @@ import { AboutUsComponent } from '../about-us/about-us.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,AboutUsComponent],
+  imports: [CommonModule,RouterOutlet,RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
