@@ -1,12 +1,39 @@
-<div class="container">
-    <h2 class="mt-5 mb-4">Angular Stripe Checkout Example</h2>
-    <div class="col-md-5 mb-2">
-      <button (click)="makePayment(15)" class="btn btn-danger btn-block">Pay $15</button>
-    </div>
-    <div class="col-md-5 mb-2">
-      <button (click)="makePayment(25)" class="btn btn-primary btn-block">Pay $25</button>
-    </div>
-    <div class="col-md-5">
-      <button (click)="makePayment(35)" class="btn btn-success btn-block">Pay $35</button>
-    </div>
+<div class="flex items-center justify-center h-screen">
+  <div #stripeContainer class="flex flex-col w-full items-center">
+    <!-- Your custom payment form -->
+    <form
+      #paymentForm
+      class="w-full max-w-lg bg-white rounded-md p-6 shadow-lg"
+    >
+      <label
+        for="card-element"
+        class="block text-gray-700 text-sm font-bold mb-2"
+        >Card details:</label
+      >
+      <div
+        id="card-element"
+        class="border p-3 mb-4 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+      ></div>
+
+      <div class="mb-6">
+        <label for="name" class="block text-gray-700 text-sm font-bold mb-2"
+          >Name on Card:</label
+        >
+        <input
+          type="text"
+          id="name"
+          placeholder="John Doe"
+          class="w-full border p-3 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-500 transition duration-300 ease-in-out"
+        />
+      </div>
+
+      <button
+        type="button"
+        (click)="makePayment()"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none"
+      >
+        Make Payment
+      </button>
+    </form>
   </div>
+</div>

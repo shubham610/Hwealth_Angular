@@ -1,51 +1,102 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+
+declare var Stripe: any;
 
 @Component({
   selector: 'app-payment',
+  imports: [
+    HttpClientModule,
+    // other modules
+  ],
   standalone: true,
-  imports: [],
   templateUrl: './payment.component.html',
-  styleUrl: './payment.component.scss'
 })
-export class PaymentComponent {
-  paymentHandler: any = null;
-  constructor() {}
-  ngOnInit() {
-    this.invokeStripe(); 
-  }
-  makePayment(amount: any) {
-    const paymentHandler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_51NTUMQSCuUXEi5M2IorbEXUsbJEizJLoSr3CK0R10mXnrgZXDwQPj39az845kW2gee5KEGOGC6BamMbUjkf864IK00xsbPEhm2',
-      locale: 'auto',
-      token: function (stripeToken: any) {
-        console.log(stripeToken);
-        alert('Payment has been successfull!');
-      },
+export class PaymentComponent implements AfterViewInit {
+  formData: any;
+  private apiUrl = 'http://localhost:8080/api';
+  private stripe: any;
+  private clientSecret!: string;
+  private card: any; // Define card variable here
+  @ViewChild('stripeContainer') stripeContainer!: ElementRef;
+
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+
+  ngAfterViewInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.formData = params['formData'];
+      this.formData = JSON.parse(this.formData);
     });
-    paymentHandler.open({
-      name: 'Hwealth Insurance',
-      description: 'Your Shield for Financial Security',
-      amount: amount * 100,
-    });
+
+    // Initialize Stripe.js after the view is initialized
+    this.stripe = Stripe(
+      'pk_test_51NTUMQSCuUXEi5M2IorbEXUsbJEizJLoSr3CK0R10mXnrgZXDwQPj39az845kW2gee5KEGOGC6BamMbUjkf864IK00xsbPEhm2'
+    ); // Replace with your Stripe publishable key
+
+    // Create an instance of Elements
+    const elements = this.stripe.elements();
+
+    // Create an instance of the card Element
+    this.card = elements.create('card', { hidePostalCode: true });
+
+    // Mount the card Element to the container
+    this.card.mount('#card-element');
   }
-  
-  invokeStripe() {
-    if (!window.document.getElementById('stripe-script')) {
-      const script = window.document.createElement('script');
-      script.id = 'stripe-script';
-      script.type = 'text/javascript';
-      script.src = 'https://checkout.stripe.com/checkout.js';
-      script.onload = () => {
-        this.paymentHandler = (<any>window).StripeCheckout.configure({
-          key: 'pk_test_51NTUMQSCuUXEi5M2IorbEXUsbJEizJLoSr3CK0R10mXnrgZXDwQPj39az845kW2gee5KEGOGC6BamMbUjkf864IK00xsbPEhm2',
-          locale: 'auto',
-          token: function (stripeToken: any) {
-            console.log(stripeToken);
-            alert('Payment has been successfull!');
-          },
-        });
-      };
-      window.document.body.appendChild(script);
-    }
+
+  makePayment() {
+    // Create PaymentMethod using the card Element
+    this.stripe
+      .createPaymentMethod({
+        type: 'card',
+        card: this.card, // Use the defined card variable
+      })
+      .then((result: any) => {
+        if (result.error) {
+          console.error('Error creating PaymentMethod:', result.error);
+        } else {
+          // PaymentMethod created successfully, proceed to create PaymentIntent on the server
+          this.createPaymentIntent().subscribe(
+            (response) => {
+              // Handle successful payment intent creation
+              this.clientSecret = response.clientSecret;
+
+              // Call the Stripe.js method to confirm the payment on the client side
+              this.stripe
+                .confirmCardPayment(this.clientSecret, {
+                  payment_method: result.paymentMethod.id, // Pass the PaymentMethod ID
+                })
+                .then((confirmationResult: any) => {
+                  if (confirmationResult.error) {
+                    // Handle payment confirmation error
+                    console.error(
+                      'Payment confirmation error:',
+                      confirmationResult.error
+                    );
+                  } else {
+                    // Payment confirmed successfully
+                    console.log(
+                      'Payment confirmed:',
+                      confirmationResult.paymentIntent
+                    );
+                  }
+                });
+            },
+            (error) => {
+              // Handle errors
+              console.error('Error creating payment intent:', error);
+            }
+          );
+        }
+      });
+  }
+
+  private createPaymentIntent(): Observable<any> {
+    // Send PaymentMethod ID to the server to create a PaymentIntent
+
+    return this.http.post<any>(`${this.apiUrl}/create-payment-intent`, {
+      amount: Number(this.formData.amount),
+    });
   }
 }

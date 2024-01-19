@@ -3,13 +3,14 @@ import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-insurance',
   standalone: true,
-  imports: [CommonModule, FormsModule,NavbarComponent],
+  imports: [CommonModule, RouterModule, FormsModule, NavbarComponent],
   templateUrl: './vehicle-insurance.component.html',
-  styleUrls: ['./vehicle-insurance.component.scss']
+  styleUrls: ['./vehicle-insurance.component.scss'],
 })
 export class VehicleInsuranceComponent {
   formData: any = {
@@ -28,15 +29,15 @@ export class VehicleInsuranceComponent {
       tenure: '',
       type: '',
     },
+    amount: 0,
   };
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
 
-  onBuyInsurance() {
-    console.log('Form Data:', this.formData);
-  
+  getQuote() {
+    this.formData.amount = 3500;
   }
 }
