@@ -21,8 +21,8 @@
                 <input
                   type="text"
                   name="username"
+                  [(ngModel)]="formData.personalDetails.name"
                   id="username"
-                  autocomplete="username"
                   class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   placeholder="Enter Your Name"
                 />
@@ -40,8 +40,9 @@
                 class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md"
               >
                 <input
-                  type="text"
+                  type="email"
                   name="useremail"
+                  [(ngModel)]="formData.personalDetails.email"
                   id="useremail"
                   class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   placeholder="Enter Your Email"
@@ -63,7 +64,7 @@
                   type="text"
                   name="phone"
                   id="phone"
-                  autocomplete="username"
+                  [(ngModel)]="formData.personalDetails.phone"
                   class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   placeholder="Enter Your Phone No."
                 />
@@ -85,6 +86,7 @@
                   type="text"
                   name="age"
                   id="age"
+                  [(ngModel)]="formData.personalDetails.age"
                   class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   placeholder="Enter Your Age"
                 />
@@ -117,7 +119,7 @@
             <ul class="grid w-full gap-6 md:grid-cols-3">
               <li>
                 <input
-                  [(ngModel)]="val"  
+                  [(ngModel)]="formData.insuranceDetails.type"  
                   type="radio"
                   name="type"
                   id="self"
@@ -136,7 +138,7 @@
               </li>
               <li>
                 <input
-                [(ngModel)]="val" 
+                [(ngModel)]="formData.insuranceDetails.type" 
                   type="radio"
                   name="type"
                   id="family"
@@ -167,6 +169,7 @@
                 <li>
                   <input
                     type="radio"
+                    [(ngModel)]="formData.insuranceDetails.tenure"  
                     name="tenure"
                     id="one-year"
                     value="one-year"
@@ -186,6 +189,7 @@
                   <input
                     type="radio"
                     name="tenure"
+                    [(ngModel)]="formData.insuranceDetails.tenure"  
                     id="two-year"
                     value="two-year"
                     class="hidden peer"
@@ -204,6 +208,7 @@
                   <input
                     type="radio"
                     id="three-year"
+                    [(ngModel)]="formData.insuranceDetails.tenure"  
                     name="tenure"
                     value="three-year"
                     class="hidden peer"
@@ -224,19 +229,19 @@
       </div>
     </div>
 
-    <div class="space-y-3" *ngIf="val=='family'">
+    <div class="space-y-3" *ngIf="formData.insuranceDetails.type=='family'">
         <h2 class="text-2xl font-semibold leading-7 text-gray-900">
           Family Details
         </h2>
         <div class="flex flex-row border-b border-gray-900/10 pb-12 gap-6">
-            <select (change)="onSelect()" [(ngModel)]="adult" name="adult" id="adult" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600">
+            <select (change)="onSelectAdult()" [(ngModel)]="formData.familyDetails.numAdult" name="adult" id="adult" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600">
     <option [value]=0 selected>No. of Adults</option>
   <option [value]=1>1</option>
   <option [value]=2>2</option>
   <option [value]=3>3</option>
   <option [value]=4>4</option>
 </select>
-<select id="children" (change)="onSelect()" name="children" [(ngModel)]="child" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600">
+<select id="children" (change)="onSelectChild()" name="children" [(ngModel)]="formData.familyDetails.numChild" class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600">
     <option [value]=0 selected>No. of Children</option>
   <option [value]=1>1</option>
   <option [value]=2>2</option>
@@ -246,7 +251,7 @@
 
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2">
-            <ng-container *ngFor="let _ of [].constructor(adult);let i=index">
+            <ng-container *ngFor="let a of formData.familyDetails.adults;let i=index">
            
                 <div class="flex flex-row border-b border-gray-900/10 pb-12">
                   <div class="flex-1 flex-col mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -266,6 +271,8 @@
                           <input
                             type="text"
                             name="person{{i+1}}_name"
+                            value="formData.familyDetails.adults[i].name"
+                            [(ngModel)]="formData.familyDetails.adults[i].name"
                             id="person{{i+1}}_name"
                             class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                             placeholder="Enter Person {{i+1}} Name"
@@ -286,6 +293,8 @@
                           <input
                             type="text"
                             name="person{{i+1}}_age"
+                            value="formData.familyDetails.adults[i].age"
+                            [(ngModel)]="formData.familyDetails.adults[i].age"
                             id="person{{i+1}}_age"
                             class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                             placeholder="Enter Person {{i+1}} Age"
@@ -296,7 +305,7 @@
                   </div>
                 </div>
                        </ng-container>
-                       <ng-container *ngFor="let _ of [].constructor(child);let i=index">
+                       <ng-container *ngFor="let c of formData.familyDetails.childs;let i=index">
            
                         <div class="flex flex-row border-b border-gray-900/10 pb-12">
                           <div class="flex-1 flex-col mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -316,6 +325,8 @@
                                   <input
                                     type="text"
                                     name="child{{i+1}}_name"
+                                    [(ngModel)]="formData.familyDetails.childs[i].name"
+                                    value="formData.familyDetails.childs[i].name"
                                     id="child{{i+1}}_name"
                                     class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                     placeholder="Enter Child {{i+1}} Name"
@@ -337,6 +348,8 @@
                                     type="text"
                                     name="child{{i+1}}_age"
                                     id="child{{i+1}}_age"
+                                    [(ngModel)]="formData.familyDetails.childs[i].age"
+                                    value="formData.familyDetails.childs[i].name"
                                     class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                     placeholder="Enter Child {{i+1}} Age"
                                   />
@@ -360,7 +373,8 @@
         Get Quote
       </button>
       <button
-        type="submit"
+        type="button"
+        (click)="printDetails()"
         class="rounded-md bg-blue-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
       >
         Buy Insurance

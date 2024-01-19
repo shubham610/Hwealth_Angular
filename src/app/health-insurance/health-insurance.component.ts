@@ -15,19 +15,43 @@ import { NavbarComponent } from '../navbar/navbar.component';
 
 export class HealthInsuranceComponent {
 
-  
+  formData: any = {
+    personalDetails: {
+      name: '',
+      email: '',
+      phone: '',
+      age:''
+    },
+    insuranceDetails: {
+      tenure: '',
+      type: '',
+    },
+    familyDetails:{
+      numChild:0,
+      numAdult:0,
+      childs:[],
+      adults:[]
+    }
+  };
 
-  child:number;
-  adult:number;
-  val:string="";
   constructor(private authService: AuthService) {
-    this.child=0;
-    this.adult=0;
-
+    // this.formData.familyDetails.adults=new Array(this.formData.numAdult);
+    
   }
-  onSelect(){
-    this.child=Number(this.child);
-    this.adult=Number(this.adult);
+  onSelectChild() {
+    this.formData.familyDetails.numChild = Number(this.formData.familyDetails.numChild);
+    this.formData.familyDetails.childs = new Array(this.formData.familyDetails.numChild) .fill(null)
+    .map(() => ({ name: '', age: '' }));
+  }
+  onSelectAdult() {
+    this.formData.familyDetails.numAdult = Number(this.formData.familyDetails.numAdult);
+    this.formData.familyDetails.adults = new Array(this.formData.familyDetails.numAdult)
+      .fill(null)
+      .map(() => ({ name: '', age: '' }));
+  }
+  printDetails(){
+    console.log(this.formData);
+    
   }
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
