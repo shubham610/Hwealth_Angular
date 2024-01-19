@@ -9,6 +9,7 @@ import { VehicleInsuranceComponent } from './vehicle-insurance/vehicle-insurance
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HealthInsuranceComponent } from './health-insurance/health-insurance.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { PaymentComponent } from './payment/payment.component';
 
 export const routes: Routes = [
     {path:'login',component:LoginComponent},
@@ -17,5 +18,6 @@ export const routes: Routes = [
     {path:'vehicle',component:VehicleInsuranceComponent,  canActivate: [AuthGuard]},
     {path:'health',component:HealthInsuranceComponent,  canActivate: [AuthGuard]},
     {path:'about',component:AboutUsComponent, canActivate: [AuthGuard]},
-    {path:'contact',component:ContactUsComponent,  canActivate: [AuthGuard]}
+    {path:'contact',component:ContactUsComponent,  canActivate: [AuthGuard]},
+    {path:'pay',component:PaymentComponent,  canActivate: [AuthGuard]}
 ];
