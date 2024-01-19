@@ -11,9 +11,24 @@ import { NavbarComponent } from '../navbar/navbar.component';
   templateUrl: './health-insurance.component.html',
   styleUrl: './health-insurance.component.scss'
 })
-export class HealthInsuranceComponent {
-  constructor(private authService: AuthService) {}
 
+
+export class HealthInsuranceComponent {
+
+  
+
+  child:number;
+  adult:number;
+  val:string="";
+  constructor(private authService: AuthService) {
+    this.child=0;
+    this.adult=0;
+
+  }
+  onSelect(){
+    this.child=Number(this.child);
+    this.adult=Number(this.adult);
+  }
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
