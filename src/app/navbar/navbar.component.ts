@@ -24,4 +24,10 @@ export class NavbarComponent {
     this.submit=!this.submit;
   
   }
+  logout()
+  {
+    
+    sessionStorage.removeItem("token");
+    window.location.reload();
+  }
 }

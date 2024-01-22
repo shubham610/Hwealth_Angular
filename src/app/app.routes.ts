@@ -10,11 +10,12 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { HealthInsuranceComponent } from './health-insurance/health-insurance.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PaymentComponent } from './payment/payment.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
     {path:'login',component:LoginComponent},
     {path:'signup',component:SignupComponent},
-    {path:'home',component:AppComponent,  canActivate: [AuthGuard]},
+    {path:'',component:HomeComponent},
     {path:'vehicle',component:VehicleInsuranceComponent,  canActivate: [AuthGuard]},
     {path:'health',component:HealthInsuranceComponent,  canActivate: [AuthGuard]},
     {path:'about',component:AboutUsComponent, canActivate: [AuthGuard]},
