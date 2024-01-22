@@ -62,7 +62,38 @@ export class HealthInsuranceComponent {
     return this.authService.isLoggedIn();
   }
   getQuote() {
-    this.formData.amount = 3500;
+
+    let price=0;
+    const currentDate = new Date();
+    if(this.formData.insuranceDetails.type=='self'){
+      if(this.formData.personalDetails.age==''||this.formData.personalDetails.age==0){
+        return
+      }
+      if(this.formData.personalDetails.age>=60){
+        price=6999
+      }else if(this.formData.personalDetails.age>=45){
+        price=5499
+      }else if(this.formData.personalDetails.age>=25){
+        price=5099
+    }else if(this.formData.personalDetails.age>=16){
+      price=4599
+  }else{
+      price=3999
+    }
+    if(this.formData.insuranceDetails.tenure=='two-year'){
+      price*=2;
+     price= price-price*0.1;
+    }else if(this.formData.insuranceDetails.tenure=='three-year'){
+      price*=3;
+      price= price-price*0.2;
+    }
+  
+  }
+  
+    this.formData.amount = Math.round(price);
+    if(price<=0){
+      return;
+    }
     this.show=true;
   }
 }
