@@ -33,7 +33,7 @@ export class PaymentComponent implements AfterViewInit {
     // Initialize Stripe.js after the view is initialized
     this.stripe = Stripe(
       'pk_test_51NTUMQSCuUXEi5M2IorbEXUsbJEizJLoSr3CK0R10mXnrgZXDwQPj39az845kW2gee5KEGOGC6BamMbUjkf864IK00xsbPEhm2'
-    ); // Replace with your Stripe publishable key
+    ); 
 
     // Create an instance of Elements
     const elements = this.stripe.elements();
