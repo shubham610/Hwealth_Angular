@@ -4,15 +4,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Router, RouterModule } from '@angular/router';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-vehicle-insurance',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, RouterModule, FormsModule, NavbarComponent,FooterComponent],
   templateUrl: './vehicle-insurance.component.html',
   styleUrls: ['./vehicle-insurance.component.scss'],
 })
 export class VehicleInsuranceComponent {
+  show:boolean=false;
   formData: any = {
     personalDetails: {
       name: '',
@@ -39,5 +41,6 @@ export class VehicleInsuranceComponent {
 
   getQuote() {
     this.formData.amount = 3500;
+    this.show=true;
   }
 }

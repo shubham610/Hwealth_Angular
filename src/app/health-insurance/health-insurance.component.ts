@@ -4,15 +4,17 @@ import { AuthService } from '../auth.service';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-health-insurance',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FormsModule, RouterModule],
+  imports: [NavbarComponent, CommonModule, FormsModule, RouterModule,FooterComponent],
   templateUrl: './health-insurance.component.html',
   styleUrl: './health-insurance.component.scss',
 })
 export class HealthInsuranceComponent {
+  show:boolean=false;
   formData: any = {
     personalDetails: {
       name: '',
@@ -61,5 +63,6 @@ export class HealthInsuranceComponent {
   }
   getQuote() {
     this.formData.amount = 3500;
+    this.show=true;
   }
 }

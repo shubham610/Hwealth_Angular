@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FormsModule } from '@angular/forms'
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FormsModule],
+  imports: [NavbarComponent, CommonModule, FormsModule,FooterComponent],
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss']
 
