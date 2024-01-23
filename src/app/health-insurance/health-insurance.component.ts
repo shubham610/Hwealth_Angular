@@ -39,6 +39,7 @@ export class HealthInsuranceComponent {
     // this.formData.familyDetails.adults=new Array(this.formData.numAdult);
   }
   onSelectChild() {
+    this.show=false;
     this.formData.familyDetails.numChild = Number(
       this.formData.familyDetails.numChild
     );
@@ -50,6 +51,7 @@ export class HealthInsuranceComponent {
   }
 
   onSelectAdult() {
+    this.show=false;
     this.formData.familyDetails.numAdult = Number(
       this.formData.familyDetails.numAdult
     );
@@ -135,5 +137,8 @@ export class HealthInsuranceComponent {
       return;
     }
     this.show=true;
+  }
+  reverseShow(){
+    this.show=false;
   }
 }

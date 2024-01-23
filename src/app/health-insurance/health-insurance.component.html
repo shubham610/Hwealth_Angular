@@ -86,6 +86,7 @@
                     type="text"
                     name="age"
                     id="age"
+                    ngChange="reverseShow()"
                     [(ngModel)]="formData.personalDetails.age"
                     class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                     placeholder="Enter Your Age"
@@ -122,6 +123,7 @@
                     type="radio"
                     name="type"
                     id="self"
+                    (change)="reverseShow()"
                     value="self"
                     class="hidden peer"
                     required
@@ -140,6 +142,7 @@
                     [(ngModel)]="formData.insuranceDetails.type"
                     type="radio"
                     name="type"
+                    (change)="reverseShow()"
                     id="family"
                     value="family"
                     class="hidden peer"
@@ -171,6 +174,7 @@
                     [(ngModel)]="formData.insuranceDetails.tenure"
                     name="tenure"
                     id="one-year"
+                    (change)="reverseShow()"
                     value="one-year"
                     class="hidden peer"
                     required
@@ -190,6 +194,7 @@
                     name="tenure"
                     [(ngModel)]="formData.insuranceDetails.tenure"
                     id="two-year"
+                    (change)="reverseShow()"
                     value="two-year"
                     class="hidden peer"
                     required
@@ -210,6 +215,7 @@
                     [(ngModel)]="formData.insuranceDetails.tenure"
                     name="tenure"
                     value="three-year"
+                    (change)="reverseShow()"
                     class="hidden peer"
                     required
                   />
@@ -280,6 +286,7 @@
                       <input
                         type="text"
                         name="person{{ i + 1 }}_name"
+                        (change)="reverseShow()"
                         value="formData.familyDetails.adults[i].name"
                         [(ngModel)]="formData.familyDetails.adults[i].name"
                         id="person{{ i + 1 }}_name"
@@ -302,6 +309,7 @@
                       <input
                         type="text"
                         name="person{{ i + 1 }}_age"
+                        (change)="reverseShow()"
                         value="formData.familyDetails.adults[i].age"
                         [(ngModel)]="formData.familyDetails.adults[i].age"
                         id="person{{ i + 1 }}_age"

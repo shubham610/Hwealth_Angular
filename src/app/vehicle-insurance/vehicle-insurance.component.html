@@ -120,6 +120,7 @@
                 <li>
                   <input
                     type="radio"
+                    (change)="reverseShow()"
                     name="vehicleType"
                     id="car"
                     value="car"
@@ -141,6 +142,7 @@
                     type="radio"
                     name="vehicleType"
                     id="bike"
+                    (change)="reverseShow()"
                     value="bike"
                     class="hidden peer"
                     required
@@ -191,6 +193,7 @@
                   <input
                     type="date"
                     name="reg_date"
+                    (change)="reverseShow()"
                     id="reg_date"
                     class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                     placeholder="Enter Registration Date"
@@ -219,6 +222,7 @@
                   <input
                     type="radio"
                     name="tenure"
+                    (change)="reverseShow()"
                     id="one-year"
                     value="one-year"
                     class="hidden peer"
@@ -239,6 +243,7 @@
                     type="radio"
                     name="tenure"
                     id="two-year"
+                    (change)="reverseShow()"
                     value="two-year"
                     class="hidden peer"
                     required
@@ -257,6 +262,7 @@
                   <input
                     type="radio"
                     id="three-year"
+                    (change)="reverseShow()"
                     name="tenure"
                     value="three-year"
                     class="hidden peer"
@@ -286,6 +292,7 @@
                     type="radio"
                     name="insuranceType"
                     id="comprehensive"
+                    (change)="reverseShow()"
                     value="comprehensive"
                     class="hidden peer"
                     required
@@ -305,6 +312,7 @@
                     type="radio"
                     name="insuranceType"
                     id="thirdParty"
+                    (change)="reverseShow()"
                     value="thirdParty"
                     class="hidden peer"
                     required

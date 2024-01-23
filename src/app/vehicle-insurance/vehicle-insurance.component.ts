@@ -85,4 +85,7 @@ export class VehicleInsuranceComponent {
     }
     this.show=true;
   }
+  reverseShow(){
+    this.show=false;
+  }
 }
