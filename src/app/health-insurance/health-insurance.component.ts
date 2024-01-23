@@ -48,6 +48,7 @@ export class HealthInsuranceComponent {
       .fill(null)
       .map(() => ({ name: '', age: '' }));
   }
+
   onSelectAdult() {
     this.formData.familyDetails.numAdult = Number(
       this.formData.familyDetails.numAdult
@@ -58,6 +59,7 @@ export class HealthInsuranceComponent {
       .fill(null)
       .map(() => ({ name: '', age: '' }));
   }
+
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
@@ -79,7 +81,45 @@ export class HealthInsuranceComponent {
       price=4599
   }else{
       price=3999
-    }
+    }}
+    else if (this.formData.insuranceDetails.type === 'family') {
+  
+      const adultPrice = 4000;
+      const childPrice = 2500;
+  
+      for (const adult of this.formData.familyDetails.adults) {
+        if (adult.age === '' || adult.age === 0) {
+          return; 
+        }
+        if (adult.age >= 60) {
+          price += adultPrice + 1999; 
+        } else if (adult.age >= 45) {
+          price += adultPrice + 1299;
+        }else if(this.formData.personalDetails.age>=25){
+          price += adultPrice + 599;
+        }
+         else {
+          price += adultPrice;
+        }
+      }
+
+      for (const child of this.formData.familyDetails.childs) {
+        if (child.age === '' || child.age === 0) {
+          return; 
+        }
+        if(child.age>=18){
+          alert('Invalid age- Child must be less than 18 years of age')
+          return;
+        }
+        if (child.age >= 10) {
+          price += childPrice + 499; // Additional charge for children above 10
+        } else {
+          price += childPrice;
+        }
+      }
+  
+  
+
     if(this.formData.insuranceDetails.tenure=='two-year'){
       price*=2;
      price= price-price*0.1;
