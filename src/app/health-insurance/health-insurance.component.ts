@@ -120,7 +120,7 @@ export class HealthInsuranceComponent {
         }
       }
   
-  
+    }
 
     if(this.formData.insuranceDetails.tenure=='two-year'){
       price*=2;
@@ -130,7 +130,6 @@ export class HealthInsuranceComponent {
       price= price-price*0.2;
     }
   
-  }
   
     this.formData.amount = Math.round(price);
     if(price<=0){

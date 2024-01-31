@@ -9,40 +9,41 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule,FormsModule,RouterOutlet,RouterLink,HttpClientModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterOutlet,
+    RouterLink,
+    HttpClientModule,
+  ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-
-  formData:any={
-    userName:null,
-    userPassword:null
-  }
-  loginUser(){
+  formData: any = {
+    userName: null,
+    userPassword: null,
+  };
+  loginUser() {
     console.log(this.formData);
-    
 
-   this.logIn().subscribe( 
-    (response) => {console.log(response);
-      sessionStorage.setItem("token",response.userName)
-    },
-    (error) => {
-      console.log(error.error);
-    }
-   );
-    
+    this.logIn().subscribe(
+      (response) => {
+        console.log(response);
+        sessionStorage.setItem('token', response.userName);
+      },
+      (error) => {
+        console.log(error.error);
+      }
+    );
   }
 
   private apiUrl = 'http://localhost:8080/user';
   constructor(private http: HttpClient) {}
 
-  private logIn():Observable<any>{ 
-    return this.http.post<any>(`${this.apiUrl}/login`, 
-      this.formData
-    );
+  private logIn(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, this.formData);
   }
-
 
   // constructor(private authService: AuthService) {}
 
@@ -54,7 +55,4 @@ export class LoginComponent {
   //   const token = '1234';
   //   this.authService.login(token);
   // }
-
-  
-
 }
