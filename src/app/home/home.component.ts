@@ -7,13 +7,10 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,NavbarComponent,FooterComponent],
+  imports: [CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  constructor(private userService:UserService){
-
-  }
-  
+  constructor(private userService: UserService) {}
 }

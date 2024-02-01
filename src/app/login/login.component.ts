@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserService } from '../user.service';
+import shajs from 'sha.js';
 
 @Component({
   selector: 'app-login',
@@ -44,6 +45,7 @@ export class LoginComponent {
  
 
   private logIn(): Observable<any> {
+    this.formData.userPassword=shajs('SHA256').update(this.formData.userPassword).digest('hex');
     return this.http.post<any>(`${this.apiUrl}/login`, this.formData);
   }
 
