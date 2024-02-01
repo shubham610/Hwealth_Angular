@@ -110,7 +110,7 @@ export class PaymentComponent implements AfterViewInit {
   private addInsurance(): Observable<any> {
     // Send PaymentMethod ID to the server to create a PaymentIntent
 
-    return this.http.post<any>(`${this.apiUrl}/vehicle/add`, 
+    return this.http.post<any>(`${this.apiUrl}vehicle/add`, 
       this.formData,
     );
   }
