@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { error } from 'console';
 
 declare var Stripe: any;
 
@@ -16,7 +17,7 @@ declare var Stripe: any;
 })
 export class PaymentComponent implements AfterViewInit {
   formData: any;
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'http://localhost:8080/';
   private stripe: any;
   private clientSecret!: string;
   private card: any; // Define card variable here
@@ -80,6 +81,12 @@ export class PaymentComponent implements AfterViewInit {
                       'Payment confirmed:',
                       confirmationResult.paymentIntent
                     );
+                    this.addInsurance().subscribe((response)=>{
+                      console.log(response);
+                    },(error)=>{
+                      console.log(error.error);
+                      
+                    })
                   }
                 });
             },
@@ -95,8 +102,17 @@ export class PaymentComponent implements AfterViewInit {
   private createPaymentIntent(): Observable<any> {
     // Send PaymentMethod ID to the server to create a PaymentIntent
 
-    return this.http.post<any>(`${this.apiUrl}/create-payment-intent`, {
+    return this.http.post<any>(`${this.apiUrl}api/create-payment-intent`, {
       amount: Number(this.formData.amount),
     });
   }
+
+  private addInsurance(): Observable<any> {
+    // Send PaymentMethod ID to the server to create a PaymentIntent
+
+    return this.http.post<any>(`${this.apiUrl}/vehicle/add`, 
+      this.formData,
+    );
+  }
+
 }

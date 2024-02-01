@@ -19,19 +19,19 @@ export class VehicleInsuranceComponent {
   formData: any = {
     user:this.userService.getUser(),
     personalDetails: {
-      name: '',
-      email: '',
+      userName: '',
+      userMailId: '',
       phone: this.userService.getUser().userPhoneNo,
     },
     vehicleDetails: {
-      model: '',
-      type: '',
-      regNo: '',
-      regDate: '',
+      vehicleModel: '',
+      vehicleType: '',
+      vehicleRegistrationNo: '',
+      vehicleRegistrationDate: '',
     },
     insuranceDetails: {
-      tenure: '',
-      type: '',
+      insuranceTenure: '',
+      insuranceType: '',
     },
     amount: 0,
   };
@@ -45,39 +45,39 @@ export class VehicleInsuranceComponent {
 
     let price=0;
     const currentDate = new Date();
-    if(this.formData.vehicleDetails.type=='bike'){
+    if(this.formData.vehicleDetails.vehicleType=='bike'){
       price=900;
-      if(new Date(this.formData.vehicleDetails.regDate) < new Date(currentDate.getFullYear() - 2, currentDate.getMonth(), currentDate.getDate())){
+      if(new Date(this.formData.vehicleDetails.vehicleRegistrationDate) < new Date(currentDate.getFullYear() - 2, currentDate.getMonth(), currentDate.getDate())){
         price=price+299;
-      }else if(new Date(this.formData.vehicleDetails.regDate) < new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate())){
+      }else if(new Date(this.formData.vehicleDetails.vehicleRegistrationDate) < new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate())){
         price=price+199;
       }
-      if(this.formData.insuranceDetails.tenure=='two-year'){
+      if(this.formData.insuranceDetails.insuranceTenure=='two-year'){
         price*=2;
        price= price-price*0.1;
-      }else if(this.formData.insuranceDetails.tenure=='three-year'){
+      }else if(this.formData.insuranceDetails.insuranceTenure=='three-year'){
         price*=3;
         price= price-price*0.2;
       }
-      if(this.formData.insuranceDetails.type=='thirdParty'){
+      if(this.formData.insuranceDetails.insuranceType=='thirdParty'){
         price=price-price*0.6;
       }
     }
-    if(this.formData.vehicleDetails.type=='car'){
+    if(this.formData.vehicleDetails.vehicleType=='car'){
       price=2900;
-      if(new Date(this.formData.vehicleDetails.regDate) < new Date(currentDate.getFullYear() - 2, currentDate.getMonth(), currentDate.getDate())){
+      if(new Date(this.formData.vehicleDetails.vehicleRegistrationDate) < new Date(currentDate.getFullYear() - 2, currentDate.getMonth(), currentDate.getDate())){
         price=price+1199;
-      }else if(new Date(this.formData.vehicleDetails.regDate) < new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate())){
+      }else if(new Date(this.formData.vehicleDetails.vehicleRegistrationDate) < new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate())){
         price=price+899;
       }
-      if(this.formData.insuranceDetails.tenure=='two-year'){
+      if(this.formData.insuranceDetails.insuranceTenure=='two-year'){
         price*=2;
        price= price-price*0.1;
-      }else if(this.formData.insuranceDetails.tenure=='three-year'){
+      }else if(this.formData.insuranceDetails.insuranceTenure=='three-year'){
         price*=3;
         price= price-price*0.2;
       }
-      if(this.formData.insuranceDetails.type=='thirdParty'){
+      if(this.formData.insuranceDetails.insuranceType=='thirdParty'){
         price=price-price*0.6;
       }
     }
