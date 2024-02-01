@@ -26,7 +26,7 @@ constructor(private http: HttpClient,private router:Router,private userService:U
 
    this.signUp().subscribe( 
     (response) => {
-      sessionStorage.setItem("token",response.userName)
+      sessionStorage.setItem('token', JSON.stringify(response));
       this.userService.setUser(response);
       this.router.navigate(['/']);
     },
