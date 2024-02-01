@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AboutUsComponent } from '../about-us/about-us.component';
 
@@ -14,7 +14,7 @@ import { AboutUsComponent } from '../about-us/about-us.component';
 export class NavbarComponent {
   submit:boolean=false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private router:Router) {}
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
@@ -28,6 +28,6 @@ export class NavbarComponent {
   {
     
     sessionStorage.removeItem("token");
-    window.location.reload();
+    this.router.navigate(['/login'])
   }
 }

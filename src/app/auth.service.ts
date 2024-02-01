@@ -1,16 +1,22 @@
 // auth.service.ts
 
 import { Injectable } from '@angular/core';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  constructor(private userService:UserService){}
+
   // Method to check if the user is logged in
   isLoggedIn(): boolean {
     if(typeof document !==undefined){
-    return !! sessionStorage.getItem('token');
+    if(sessionStorage.getItem('token')!=null){
+      this.userService.setUser(JSON.parse(sessionStorage.getItem('token')||"{'userId':null,'userName':null,'userPhoneNo':null}"));
+      return true;
+    }
     }
     return false;
   }
@@ -27,6 +33,7 @@ export class AuthService {
   logout(): void {
     if(typeof document!==undefined){
       sessionStorage.removeItem('token');
+      this.userService.setUser(JSON.parse("{'userId':null,'userName':null,'userPhoneNo':null}"))
     }
   }
 }

@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,6 +14,7 @@ import { Observable } from 'rxjs';
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
+constructor(private http: HttpClient,private router:Router,private userService:UserService) {}
   
   formData:any={
     userName:null,
@@ -21,12 +23,12 @@ export class SignupComponent {
 
   }
   signUpUser(){
-    console.log(this.formData);
-    
 
    this.signUp().subscribe( 
-    (response) => {console.log(response);
+    (response) => {
       sessionStorage.setItem("token",response.userName)
+      this.userService.setUser(response);
+      this.router.navigate(['/']);
     },
     (error) => {
       console.log(error.error);
@@ -36,7 +38,6 @@ export class SignupComponent {
   }
 
   private apiUrl = 'http://localhost:8080/user';
-  constructor(private http: HttpClient) {}
 
   private signUp():Observable<any>{ 
     return this.http.post<any>(`${this.apiUrl}/signup`, 

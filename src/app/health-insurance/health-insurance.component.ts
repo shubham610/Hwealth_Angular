@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-health-insurance',
@@ -16,10 +17,11 @@ import { FooterComponent } from '../footer/footer.component';
 export class HealthInsuranceComponent {
   show:boolean=false;
   formData: any = {
+    user:this.userService.getUser(),
     personalDetails: {
       name: '',
       email: '',
-      phone: '',
+      phone: this.userService.getUser().userPhoneNo,
       age: '',
     },
     insuranceDetails: {
@@ -35,7 +37,7 @@ export class HealthInsuranceComponent {
     amount: 0,
   };
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private userService:UserService) {
     // this.formData.familyDetails.adults=new Array(this.formData.numAdult);
   }
   onSelectChild() {

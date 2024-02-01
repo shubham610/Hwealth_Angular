@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -20,17 +21,18 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  constructor(private http: HttpClient,private router:Router,private userService:UserService) {}
   formData: any = {
     userName: null,
     userPassword: null,
   };
   loginUser() {
-    console.log(this.formData);
 
     this.logIn().subscribe(
       (response) => {
-        console.log(response);
-        sessionStorage.setItem('token', response.userName);
+        sessionStorage.setItem('token', JSON.stringify(response));
+        this.userService.setUser(response);
+        this.router.navigate(['/']);
       },
       (error) => {
         console.log(error.error);
@@ -39,7 +41,7 @@ export class LoginComponent {
   }
 
   private apiUrl = 'http://localhost:8080/user';
-  constructor(private http: HttpClient) {}
+ 
 
   private logIn(): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, this.formData);

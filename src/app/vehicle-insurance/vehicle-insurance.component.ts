@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-vehicle-insurance',
@@ -16,10 +17,11 @@ import { FooterComponent } from '../footer/footer.component';
 export class VehicleInsuranceComponent {
   show:boolean=false;
   formData: any = {
+    user:this.userService.getUser(),
     personalDetails: {
       name: '',
       email: '',
-      phone: '',
+      phone: this.userService.getUser().userPhoneNo,
     },
     vehicleDetails: {
       model: '',
@@ -34,7 +36,7 @@ export class VehicleInsuranceComponent {
     amount: 0,
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,private userService:UserService) {}
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
