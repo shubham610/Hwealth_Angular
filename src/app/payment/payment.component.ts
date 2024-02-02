@@ -79,14 +79,23 @@ export class PaymentComponent implements AfterViewInit {
                     // Payment confirmed successfully
                     console.log(
                       'Payment confirmed:',
-                      confirmationResult.paymentIntent
+                      confirmationResult.paymentIntent,
+                      this.formData.familyDetails
                     );
-                    this.addInsurance().subscribe((response)=>{
-                      console.log(response);
-                    },(error)=>{
-                      console.log(error.error);
-                      
-                    })
+                    if(this.formData.familyDetails===undefined){
+                      this.addVehicleInsurance().subscribe((response)=>{
+                        console.log(response);
+                      },(error)=>{
+                        console.log(error.error);  
+                      })
+                    }else{
+                      this.addHealthInsurance().subscribe((response)=>{
+                        console.log(response);
+                      },(error)=>{
+                        console.log(error.error);
+                        
+                      })
+                    }
                   }
                 });
             },
@@ -107,10 +116,17 @@ export class PaymentComponent implements AfterViewInit {
     });
   }
 
-  private addInsurance(): Observable<any> {
+  private addVehicleInsurance(): Observable<any> {
     // Send PaymentMethod ID to the server to create a PaymentIntent
 
     return this.http.post<any>(`${this.apiUrl}vehicle/add`, 
+      this.formData,
+    );
+  }
+  private addHealthInsurance(): Observable<any> {
+    // Send PaymentMethod ID to the server to create a PaymentIntent
+
+    return this.http.post<any>(`${this.apiUrl}health/add`, 
       this.formData,
     );
   }
