@@ -1,8 +1,9 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { error } from 'console';
+import { Location } from '@angular/common';
 
 declare var Stripe: any;
 
@@ -17,19 +18,33 @@ declare var Stripe: any;
 })
 export class PaymentComponent implements AfterViewInit {
   formData: any;
+  isDisabled:boolean=false;
+  paymentDetails:any;
   private apiUrl = 'http://localhost:8080/';
   private stripe: any;
   private clientSecret!: string;
   private card: any; // Define card variable here
   @ViewChild('stripeContainer') stripeContainer!: ElementRef;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  // constructor(private http: HttpClient, private route: ActivatedRoute) {}
+
+  constructor(private location: Location,private http: HttpClient, private route: ActivatedRoute,private router: Router) {
+    // this.data = this.router.getCurrentNavigation().extras.state?.['response'];
+    this.formData=location.getState(); 
+    this.formData=this.formData.formData
+    if (!this.formData) {
+      this.router.navigate(['']);
+    }
+    console.log(this.formData);
+    
+  }
 
   ngAfterViewInit() {
-    this.route.queryParams.subscribe((params) => {
-      this.formData = params['formData'];
-      this.formData = JSON.parse(this.formData);
-    });
+    this.isDisabled=false;
+    // this.route.queryParams.subscribe((params) => {
+    //   this.formData = params['formData'];
+    //   this.formData = JSON.parse(this.formData);
+    // });
 
     // Initialize Stripe.js after the view is initialized
     this.stripe = Stripe(
@@ -47,6 +62,7 @@ export class PaymentComponent implements AfterViewInit {
   }
 
   makePayment() {
+    this.isDisabled=true;
     // Create PaymentMethod using the card Element
     this.stripe
       .createPaymentMethod({
@@ -77,20 +93,32 @@ export class PaymentComponent implements AfterViewInit {
                     );
                   } else {
                     // Payment confirmed successfully
+                    this.paymentDetails=confirmationResult.paymentIntent,
                     console.log(
                       'Payment confirmed:',
-                      confirmationResult.paymentIntent,
-                      this.formData.familyDetails
+                      this.paymentDetails
                     );
                     if(this.formData.familyDetails===undefined){
                       this.addVehicleInsurance().subscribe((response)=>{
                         console.log(response);
+                        this.router.navigate(['confirm'], {
+                          state: {
+                            formData:response,
+                            paymentDetails:this.paymentDetails
+                          },
+                        });
                       },(error)=>{
                         console.log(error.error);  
                       })
                     }else{
                       this.addHealthInsurance().subscribe((response)=>{
                         console.log(response);
+                        this.router.navigate(['confirm'], {
+                          state: {
+                            formData:response,
+                            paymentDetails:this.paymentDetails
+                          }
+                        });
                       },(error)=>{
                         console.log(error.error);
                         

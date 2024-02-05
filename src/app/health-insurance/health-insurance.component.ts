@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { UserService } from '../user.service';
 
@@ -37,7 +37,7 @@ export class HealthInsuranceComponent {
     amount: 0,
   };
 
-  constructor(private authService: AuthService,private userService:UserService) {
+  constructor(private router:Router, private authService: AuthService,private userService:UserService) {
     // this.formData.familyDetails.adults=new Array(this.formData.numAdult);
   }
   onSelectChild() {
@@ -141,5 +141,12 @@ export class HealthInsuranceComponent {
   }
   reverseShow(){
     this.show=false;
+  }
+  one(): void {
+    this.router.navigate(['pay'], {
+      state: {
+        formData:this.formData,
+      },
+    });
   }
 }

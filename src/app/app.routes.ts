@@ -11,6 +11,7 @@ import { HealthInsuranceComponent } from './health-insurance/health-insurance.co
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PaymentComponent } from './payment/payment.component';
 import { HomeComponent } from './home/home.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 export const routes: Routes = [
     {path:'login',component:LoginComponent},
@@ -20,5 +21,7 @@ export const routes: Routes = [
     {path:'health',component:HealthInsuranceComponent,  canActivate: [AuthGuard]},
     {path:'about',component:AboutUsComponent, canActivate: [AuthGuard]},
     {path:'contact',component:ContactUsComponent,  canActivate: [AuthGuard]},
-    {path:'pay',component:PaymentComponent,  canActivate: [AuthGuard]}
+    {path:'pay',component:PaymentComponent,  canActivate: [AuthGuard]},
+    {path:'confirm',component:ConfirmComponent,  canActivate: [AuthGuard]}
+
 ];

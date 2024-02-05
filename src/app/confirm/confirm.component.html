@@ -1,0 +1,22 @@
+<div class="flex justify-center items-center h-screen bg-gray-100">
+    <div class="max-w-md w-full bg-white p-8 rounded shadow-md">
+      <h1 class="text-2xl font-semibold text-center mb-6">Payment Confirmation</h1>
+  
+      <div class="confirmation-details">
+        <p><strong>Transaction ID:</strong> {{ paymentDetails.id }}</p>
+        <p><strong>Date:</strong> {{ paymentDetails.created * 1000 | date }}</p>
+        <p><strong>Amount:</strong> {{ formData.amount }}</p>
+        <p><strong>Status:</strong> {{ paymentDetails.status }}</p>
+        <p><strong>Payment Method:</strong> {{ paymentDetails.payment_method_types[0] }}</p>
+        
+      </div>
+  
+      <div class="text-center mt-6">
+        <a routerLink="/">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Back to Home
+        </button>
+    </a>
+      </div>
+    </div>
+  </div>

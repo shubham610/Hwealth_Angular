@@ -90,4 +90,13 @@ export class VehicleInsuranceComponent {
   reverseShow(){
     this.show=false;
   }
+  
+one(): void {
+  this.router.navigate(['pay'], {
+    state: {
+      formData:this.formData,
+    },
+  });
+}
+
 }
