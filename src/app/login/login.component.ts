@@ -22,13 +22,17 @@ import shajs from 'sha.js';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  constructor(private http: HttpClient,private router:Router,private userService:UserService) {}
+  errorMessage: String = '';
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userService: UserService
+  ) {}
   formData: any = {
     userName: null,
     userPassword: null,
   };
   loginUser() {
-
     this.logIn().subscribe(
       (response) => {
         sessionStorage.setItem('token', JSON.stringify(response));
@@ -37,15 +41,18 @@ export class LoginComponent {
       },
       (error) => {
         console.log(error.error);
+        this.errorMessage = error.error;
+        this.formData.userPassword = '';
       }
     );
   }
 
   private apiUrl = 'http://localhost:8080/user';
- 
 
   private logIn(): Observable<any> {
-    this.formData.userPassword=shajs('SHA256').update(this.formData.userPassword).digest('hex');
+    this.formData.userPassword = shajs('SHA256')
+      .update(this.formData.userPassword)
+      .digest('hex');
     return this.http.post<any>(`${this.apiUrl}/login`, this.formData);
   }
 

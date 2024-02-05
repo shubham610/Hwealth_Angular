@@ -15,6 +15,7 @@ import shajs from 'sha.js';
   styleUrl: './signup.component.scss',
 })
 export class SignupComponent {
+  errorMessage: String = '';
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -35,6 +36,8 @@ export class SignupComponent {
       },
       (error) => {
         console.log(error.error);
+        this.errorMessage = error.error;
+        this.formData.userPassword='';
       }
     );
   }

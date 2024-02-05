@@ -1,22 +1,70 @@
-<!-- <div class="">
-    <div *ngIf="vehicleResult!=null">
-        <ng-container *ngFor="let i of vehicleResult">
-            {{i.amount}}
+<div
+  class="carousel-container relative overflow-hidden bg-gray-100 p-4 m-auto rounded shadow-md h-96 w-[90%] md:w-72"
+  *ngIf="
+    vehicleResult &&
+    healthResult &&
+    (vehicleResult.length != 0 || healthResult.length != 0)
+  "
+>
+  <div
+    class="flex transition-transform duration-300 ease-in-out h-full"
+    [style.transform]="'translateX(' + (showVehicleSection ? 0 : -100) + '%)'"
+  >
+    <div
+      class="w-full flex-shrink-0 flex items-center justify-center"
+      *ngIf="vehicleResult.length != 0"
+    >
+      <div
+        class="bg-gray-50 h-full p-4 rounded w-full shadow-md content-container flex-grow"
+        *ngIf="showVehicleSection"
+      >
+        <p class="text-lg font-semibold mb-2">Vehicle Insurances</p>
+        <ng-container *ngFor="let vi of vehicleResult">
+          <div class="bg-white mb-2 rounded-lg overflow-hidden shadow-md p-2">
+            <p class="font-semibold">Insurance ID: {{ vi.insuranceId }}</p>
+            <p>Amount: {{ vi.amount }}</p>
+            <p>
+              Vehicle Reg.No:
+              {{ vi.vehicleDetails.vehicleRegistrationNo | uppercase }}
+            </p>
+            <p>Insurance Tenure: {{ vi.insuranceDetails.insuranceTenure }}</p>
+          </div>
         </ng-container>
-    </div>
-    <div *ngIf="healthResult!=null">
-        <ng-container *ngFor="let i of healthResult">
-            {{i.amount}}
-        </ng-container>
-    </div>
-</div> -->
-<div class="overflow-hidden relative">
-    <div class="flex transition-transform duration-300 ease-in-out" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
-      <div *ngFor="let item of items; let i = index" class="w-full flex-shrink-0">
-        <div class="bg-gray-200 p-4 rounded shadow-md">{{ item }}</div>
       </div>
     </div>
-    
-    <button class="absolute top-1/2 transform -translate-y-1/2 left-0 px-4 py-2 bg-gray-300 rounded-l" (click)="prev()">Previous</button>
-    <button class="absolute top-1/2 transform -translate-y-1/2 right-0 px-4 py-2 bg-gray-300 rounded-r" (click)="next()">Next</button>
+    <div
+      class="w-full flex-shrink-0 flex items-stretch justify-center"
+      *ngIf="healthResult.length != 0"
+    >
+      <div
+        class="bg-gray-50 p-4 w-full rounded shadow-md content-container"
+        *ngIf="!showVehicleSection"
+      >
+        <p class="text-lg font-semibold mb-2">Health Insurances</p>
+        <ng-container *ngFor="let hi of healthResult">
+          <div class="bg-white rounded-lg overflow-hidden shadow-md p-2">
+            <p class="font-semibold">Insurance ID: {{ hi.insuranceId }}</p>
+            <p>Amount: {{ hi.amount }}</p>
+            <p>Insurance Type: {{ hi.insuranceDetails.type | uppercase }}</p>
+            <p>Insurance Tenure: {{ hi.insuranceDetails.tenure }}</p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
   </div>
+
+  <button
+    class="arrow-button text-4xl arrow-left absolute top-1/2 left-0 transform -translate-y-1/2 p-2 rounded-l w-12 h-full"
+    (click)="toggleSection()"
+    *ngIf="vehicleResult.length != 0 && healthResult.length != 0"
+  >
+    &#8249;
+  </button>
+  <button
+    class="arrow-button text-4xl arrow-right absolute top-1/2 right-0 transform -translate-y-1/2 p-2 rounded-r w-12 h-full"
+    (click)="toggleSection()"
+    *ngIf="vehicleResult.length != 0 && healthResult.length != 0"
+  >
+    &#8250;
+  </button>
+</div>
