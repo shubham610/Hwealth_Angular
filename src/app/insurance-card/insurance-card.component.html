@@ -1,9 +1,7 @@
 <div
   class="carousel-container relative overflow-hidden bg-gray-100 p-4 rounded shadow-md h-96 w-[90%]"
   *ngIf="
-    vehicleResult &&
-    healthResult &&
-    (vehicleResult.length != 0 || healthResult.length != 0)
+    (vehicleResult && vehicleResult.length != 0 )||(healthResult&&healthResult!=0)
   "
 >
   <div
@@ -12,7 +10,7 @@
   >
     <div
       class="w-full flex-shrink-0 flex items-center justify-center"
-      *ngIf="vehicleResult.length != 0"
+      *ngIf="vehicleResult && vehicleResult.length != 0"
     >
       <div
         class="bg-gray-50 h-full p-4 overflow-auto rounded w-full shadow-md content-container flex-grow"
@@ -34,7 +32,7 @@
     </div>
     <div
       class="w-full flex-shrink-0 flex items-stretch justify-center"
-      *ngIf="healthResult.length != 0"
+      *ngIf="healthResult && healthResult.length != 0"
     >
       <div
         class="bg-gray-50 p-4 w-full overflow-auto rounded shadow-md content-container"
