@@ -15,7 +15,7 @@
       *ngIf="vehicleResult.length != 0"
     >
       <div
-        class="bg-gray-50 h-full p-4 rounded w-full shadow-md content-container flex-grow"
+        class="bg-gray-50 h-full p-4 overflow-auto rounded w-full shadow-md content-container flex-grow"
         *ngIf="showVehicleSection"
       >
         <p class="text-lg font-semibold mb-2">Vehicle Insurances</p>
@@ -37,7 +37,7 @@
       *ngIf="healthResult.length != 0"
     >
       <div
-        class="bg-gray-50 p-4 w-full rounded shadow-md content-container"
+        class="bg-gray-50 p-4 w-full overflow-auto rounded shadow-md content-container"
         *ngIf="!showVehicleSection"
       >
         <p class="text-lg font-semibold mb-2">Health Insurances</p>
