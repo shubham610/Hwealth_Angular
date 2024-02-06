@@ -1,5 +1,5 @@
 <div
-  class="carousel-container relative overflow-hidden bg-gray-100 p-4 m-auto rounded shadow-md h-96 w-[90%] md:w-72"
+  class="carousel-container relative overflow-hidden bg-gray-100 p-4 rounded shadow-md h-96 w-[90%]"
   *ngIf="
     vehicleResult &&
     healthResult &&
@@ -21,13 +21,13 @@
         <p class="text-lg font-semibold mb-2">Vehicle Insurances</p>
         <ng-container *ngFor="let vi of vehicleResult">
           <div class="bg-white mb-2 rounded-lg overflow-hidden shadow-md p-2">
-            <p class="font-semibold">Insurance ID: {{ vi.insuranceId }}</p>
             <p>Amount: {{ vi.amount }}</p>
             <p>
               Vehicle Reg.No:
               {{ vi.vehicleDetails.vehicleRegistrationNo | uppercase }}
             </p>
             <p>Insurance Tenure: {{ vi.insuranceDetails.insuranceTenure }}</p>
+            <p>Type: {{ vi.insuranceDetails.insuranceType }}</p>
           </div>
         </ng-container>
       </div>
@@ -43,7 +43,6 @@
         <p class="text-lg font-semibold mb-2">Health Insurances</p>
         <ng-container *ngFor="let hi of healthResult">
           <div class="bg-white rounded-lg overflow-hidden shadow-md p-2">
-            <p class="font-semibold">Insurance ID: {{ hi.insuranceId }}</p>
             <p>Amount: {{ hi.amount }}</p>
             <p>Insurance Type: {{ hi.insuranceDetails.type | uppercase }}</p>
             <p>Insurance Tenure: {{ hi.insuranceDetails.tenure }}</p>
