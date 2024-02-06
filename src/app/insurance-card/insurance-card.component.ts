@@ -13,23 +13,12 @@ import { AuthService } from '../auth.service';
   styleUrl: './insurance-card.component.scss',
 })
 export class InsuranceCardComponent {
-  items: string[] = ['Slide 1', 'Slide 2', 'Slide 3']; // Add more items if needed
-  currentIndex: number = 0;
-  interval: any;
   showVehicleSection: boolean = true;
 
   toggleSection() {
     this.showVehicleSection = !this.showVehicleSection;
   }
 
-  next(): void {
-    this.currentIndex = (this.currentIndex + 1) % this.items.length;
-  }
-
-  prev(): void {
-    this.currentIndex =
-      this.currentIndex > 0 ? this.currentIndex - 1 : this.items.length - 1;
-  }
 
   private apiUrl = 'http://localhost:8080/';
   vehicleResult: any;
