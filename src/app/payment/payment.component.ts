@@ -18,8 +18,8 @@ declare var Stripe: any;
 })
 export class PaymentComponent implements AfterViewInit {
   formData: any;
-  isDisabled:boolean=false;
-  paymentDetails:any;
+  isDisabled: boolean = false;
+  paymentDetails: any;
   private apiUrl = 'http://localhost:8080/';
   private stripe: any;
   private clientSecret!: string;
@@ -28,19 +28,23 @@ export class PaymentComponent implements AfterViewInit {
 
   // constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
-  constructor(private location: Location,private http: HttpClient, private route: ActivatedRoute,private router: Router) {
+  constructor(
+    private location: Location,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     // this.data = this.router.getCurrentNavigation().extras.state?.['response'];
-    this.formData=location.getState(); 
-    this.formData=this.formData.formData
+    this.formData = location.getState();
+    this.formData = this.formData.formData;
     if (!this.formData) {
       this.router.navigate(['']);
     }
     console.log(this.formData);
-    
   }
 
   ngAfterViewInit() {
-    this.isDisabled=false;
+    this.isDisabled = false;
     // this.route.queryParams.subscribe((params) => {
     //   this.formData = params['formData'];
     //   this.formData = JSON.parse(this.formData);
@@ -49,7 +53,7 @@ export class PaymentComponent implements AfterViewInit {
     // Initialize Stripe.js after the view is initialized
     this.stripe = Stripe(
       'pk_test_51NTUMQSCuUXEi5M2IorbEXUsbJEizJLoSr3CK0R10mXnrgZXDwQPj39az845kW2gee5KEGOGC6BamMbUjkf864IK00xsbPEhm2'
-    ); 
+    );
 
     // Create an instance of Elements
     const elements = this.stripe.elements();
@@ -62,7 +66,7 @@ export class PaymentComponent implements AfterViewInit {
   }
 
   makePayment() {
-    this.isDisabled=true;
+    this.isDisabled = true;
     // Create PaymentMethod using the card Element
     this.stripe
       .createPaymentMethod({
@@ -72,6 +76,7 @@ export class PaymentComponent implements AfterViewInit {
       .then((result: any) => {
         if (result.error) {
           console.error('Error creating PaymentMethod:', result.error);
+          this.isDisabled = false;
         } else {
           // PaymentMethod created successfully, proceed to create PaymentIntent on the server
           this.createPaymentIntent().subscribe(
@@ -93,36 +98,39 @@ export class PaymentComponent implements AfterViewInit {
                     );
                   } else {
                     // Payment confirmed successfully
-                    this.paymentDetails=confirmationResult.paymentIntent,
-                    console.log(
-                      'Payment confirmed:',
-                      this.paymentDetails
-                    );
-                    if(this.formData.familyDetails===undefined){
-                      this.addVehicleInsurance().subscribe((response)=>{
-                        console.log(response);
-                        this.router.navigate(['confirm'], {
-                          state: {
-                            formData:response,
-                            paymentDetails:this.paymentDetails
-                          },
-                        });
-                      },(error)=>{
-                        console.log(error.error);  
-                      })
-                    }else{
-                      this.addHealthInsurance().subscribe((response)=>{
-                        console.log(response);
-                        this.router.navigate(['confirm'], {
-                          state: {
-                            formData:response,
-                            paymentDetails:this.paymentDetails
-                          }
-                        });
-                      },(error)=>{
-                        console.log(error.error);
-                        
-                      })
+                    (this.paymentDetails = confirmationResult.paymentIntent),
+                      console.log('Payment confirmed:', this.paymentDetails);
+                    if (this.formData.familyDetails === undefined) {
+                      this.addVehicleInsurance().subscribe(
+                        (response) => {
+                          console.log(response);
+                          this.router.navigate(['confirm'], {
+                            state: {
+                              formData: response,
+                              paymentDetails: this.paymentDetails,
+                            },
+                          });
+                        },
+                        (error) => {
+                          console.log(error.error);
+                          this.isDisabled = false;
+                        }
+                      );
+                    } else {
+                      this.addHealthInsurance().subscribe(
+                        (response) => {
+                          console.log(response);
+                          this.router.navigate(['confirm'], {
+                            state: {
+                              formData: response,
+                              paymentDetails: this.paymentDetails,
+                            },
+                          });
+                        },
+                        (error) => {
+                          console.log(error.error);
+                        }
+                      );
                     }
                   }
                 });
@@ -130,6 +138,7 @@ export class PaymentComponent implements AfterViewInit {
             (error) => {
               // Handle errors
               console.error('Error creating payment intent:', error);
+              this.isDisabled = false;
             }
           );
         }
@@ -147,16 +156,11 @@ export class PaymentComponent implements AfterViewInit {
   private addVehicleInsurance(): Observable<any> {
     // Send PaymentMethod ID to the server to create a PaymentIntent
 
-    return this.http.post<any>(`${this.apiUrl}vehicle/add`, 
-      this.formData,
-    );
+    return this.http.post<any>(`${this.apiUrl}vehicle/add`, this.formData);
   }
   private addHealthInsurance(): Observable<any> {
     // Send PaymentMethod ID to the server to create a PaymentIntent
 
-    return this.http.post<any>(`${this.apiUrl}health/add`, 
-      this.formData,
-    );
+    return this.http.post<any>(`${this.apiUrl}health/add`, this.formData);
   }
-
 }

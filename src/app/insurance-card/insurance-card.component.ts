@@ -19,7 +19,6 @@ export class InsuranceCardComponent {
     this.showVehicleSection = !this.showVehicleSection;
   }
 
-
   private apiUrl = 'http://localhost:8080/';
   vehicleResult: any;
   healthResult: any;
@@ -40,9 +39,13 @@ export class InsuranceCardComponent {
         (response) => {
           this.vehicleResult = response;
           console.log(this.vehicleResult);
+          if (this.vehicleResult && this.vehicleResult.length == 0) {
+            this.showVehicleSection = false;
+          }
         },
         (error) => {
           console.log(error.error);
+          this.showVehicleSection = false;
         }
       );
       this.fetchHealth().subscribe(

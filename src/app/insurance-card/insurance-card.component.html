@@ -1,17 +1,15 @@
 <div
-  class="carousel-container relative overflow-hidden bg-gray-100 p-4 rounded shadow-md h-96 w-[90%]"
+  class="carousel-container mx-auto md:mx-0 relative overflow-hidden bg-gray-100 p-4 rounded shadow-md h-96 w-[90%]"
   *ngIf="
-    (vehicleResult && vehicleResult.length != 0 )||(healthResult&&healthResult!=0)
+    (vehicleResult && vehicleResult.length != 0) ||
+    (healthResult && healthResult != 0)
   "
 >
   <div
     class="flex transition-transform duration-300 ease-in-out h-full"
     [style.transform]="'translateX(' + (showVehicleSection ? 0 : -100) + '%)'"
   >
-    <div
-      class="w-full flex-shrink-0 flex items-center justify-center"
-      *ngIf="vehicleResult && vehicleResult.length != 0"
-    >
+    <div class="w-full flex-shrink-0 flex items-center justify-center">
       <div
         class="bg-gray-50 h-full p-4 overflow-auto rounded w-full shadow-md content-container flex-grow"
         *ngIf="showVehicleSection"
